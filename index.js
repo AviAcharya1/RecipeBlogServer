@@ -34,7 +34,7 @@ app.use("/auth", router);
 app.use("/auth", ForgotPassword);
 
 app.get("/", (req, res) => {
-  res.send("This is the Backend or Backend is running");
+  res.send("Connected to Database; Your Backend is running");
 });
 
 
