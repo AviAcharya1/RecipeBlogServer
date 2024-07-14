@@ -11,8 +11,8 @@ const router = express.Router();
 const app = express();
 app.use(express.json());
 app.use(cors({
-  origin: "https://recipe-blog-ui.vercel.app/signup",
-  methods: ["POST", "GET", "PUT", "DELETE"],
+  origin: ["https://recipe-blog-ui.vercel.app"],
+  methods: ["POST", "GET", "PUT", "DELETE", "OPTIONS"],
   allowedHeaders: ['Content-Type', 'Authorization'],
   credentials: true
 }));
@@ -26,6 +26,12 @@ const verifyToken = require("./middleware/middleware");
 const RecipeRoute = require("./routes/RecipeRoute");
 const ForgotPassword = require("./routes/forgotPassword");
 
+// Handle preflight requests
+app.options("*", cors());
+
+app.get("/", (req, res) => {
+  res.send("Connected to Database; Your Backend is running");
+});
 
 app.use("/auth", RegisterRoute);
 app.use("/auth", LoginRoute);
@@ -33,16 +39,12 @@ app.use("/auth", RecipeRoute);
 app.use("/auth", router);
 app.use("/auth", ForgotPassword);
 
-app.get("/", (req, res) => {
-  res.send("Connected to Database; Your Backend is running");
-});
-
 
 router.get("/", verifyToken, Home.Home);
 
 module.exports = router;
 
-app.listen(process.env.PORT, () => {
+app.listen(process.env.PORT||8002, () => {
   console.log(`Server Started on port ${process.env.PORT || 8002}`);
 });
 
