@@ -1,5 +1,5 @@
-const Recipe = require("../Schema/RecipeSchema");
-const Liked = require("../Schema/LikedRecipeSchema");
+const Recipe = require("../../Schema/RecipeSchema");
+const Liked = require("../../Schema/LikedRecipeSchema");
 
 const createRecipe = async (req, res) => {
   try {
