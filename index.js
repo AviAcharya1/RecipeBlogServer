@@ -43,7 +43,7 @@ router.get("/", verifyToken, Home.Home);
 module.exports = router;
 
 app.listen(process.env.PORT, () => {
-  console.log(`Server Started on port ${process.env.PORT}`);
+  console.log(`Server Started on port ${process.env.PORT || 8002}`);
 });
 
 
