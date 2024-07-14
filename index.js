@@ -6,16 +6,31 @@ const dotenv = require("dotenv");
 const connectDB = require("./db/config");
 
 dotenv.config();
-const router = express.Router();
-
 const app = express();
-app.use(express.json());
+
+// Allowed origins array
+const allowedOrigins = [
+  'https://recipe-blog-ui.vercel.app',
+  'https://recipe-blog-grdr3ns1h-aviacharya1s-projects.vercel.app'
+];
+
+// CORS configuration
 app.use(cors({
-  origin: 'https://recipe-blog-ui.vercel.app',
+  origin: function (origin, callback) {
+    console.log(`Origin: ${origin}`);
+    if (!origin) return callback(null, true);
+    if (allowedOrigins.indexOf(origin) === -1) {
+      const msg = 'The CORS policy for this site does not allow access from the specified Origin.';
+      return callback(new Error(msg), false);
+    }
+    return callback(null, true);
+  },
   methods: ["POST", "GET", "PUT", "DELETE", "OPTIONS"],
   allowedHeaders: ['Content-Type', 'Authorization'],
   credentials: true
 }));
+
+app.use(express.json());
 
 connectDB();
 
@@ -36,16 +51,11 @@ app.get("/", (req, res) => {
 app.use("/auth", RegisterRoute);
 app.use("/auth", LoginRoute);
 app.use("/auth", RecipeRoute);
-app.use("/auth", router);
 app.use("/auth", ForgotPassword);
 
+app.get("/home", verifyToken, Home.Home);
 
-router.get("/", verifyToken, Home.Home);
-
-module.exports = router;
-
-app.listen(process.env.PORT||8002, () => {
-  console.log(`Server Started on port ${process.env.PORT || 8002}`);
+const port = process.env.PORT || 8002;
+app.listen(port, () => {
+  console.log(`Server Started on port ${port}`);
 });
-
-
