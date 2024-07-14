@@ -8,7 +8,7 @@ const Register = async (req, res) => {
     const user = await User.findOne({ email });
 
     if (user) {
-      return res.json({ error: "User already exists" });
+      return res.status(400).json({ error: "User already exists" });
     }
 
     const token = jwt.sign(email, process.env.SECRET);
@@ -17,7 +17,7 @@ const Register = async (req, res) => {
     res.json({ newUser, token });
   } catch (e) {
     console.error(e.message);
-    res.status(500).json({ error: "Internal server error" });
+    res.status(500).json({ error: "Server error" });
   }
 };
 
