@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const verifyToken = require("../Middleware/middleware");
+const verifyToken = require("../middleware/middleware");
 
 const {
   getAllRecipes,

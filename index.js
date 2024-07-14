@@ -22,7 +22,7 @@ connectDB();
 const Home = require("./controllers/controllers");
 const LoginRoute = require("./routes/LoginRoute");
 const RegisterRoute = require("./routes/RegisterRoute");
-const verifyToken = require("./Middleware/middleware");
+const verifyToken = require("./middleware/middleware");
 const RecipeRoute = require("./routes/RecipeRoute");
 const ForgotPassword = require("./routes/forgotPassword");
 
