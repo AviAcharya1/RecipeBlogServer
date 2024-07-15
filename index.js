@@ -1,7 +1,5 @@
 const express = require("express");
 const cors = require("cors");
-const bcrypt = require("bcrypt");
-const jwt = require("jsonwebtoken");
 const dotenv = require("dotenv");
 const connectDB = require("./db/config");
 
@@ -11,7 +9,6 @@ const app = express();
 // Allowed origins array
 const allowedOrigins = [
   'https://recipe-blog-ui.vercel.app',
-  'https://recipe-blog-grdr3ns1h-aviacharya1s-projects.vercel.app'
 ];
 
 // CORS configuration
